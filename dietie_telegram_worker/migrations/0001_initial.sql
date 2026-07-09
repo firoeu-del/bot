@@ -1,0 +1,34 @@
+CREATE TABLE IF NOT EXISTS sessions (
+  chat_id TEXT PRIMARY KEY,
+  step TEXT NOT NULL,
+  data TEXT NOT NULL DEFAULT '{}',
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS profiles (
+  chat_id TEXT PRIMARY KEY,
+  first_name TEXT,
+  gender TEXT NOT NULL,
+  age INTEGER NOT NULL,
+  height_cm REAL NOT NULL,
+  weight_kg REAL NOT NULL,
+  goal TEXT NOT NULL,
+  activity TEXT NOT NULL,
+  meals INTEGER NOT NULL,
+  restrictions TEXT DEFAULT '',
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS plans (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  chat_id TEXT NOT NULL,
+  calories INTEGER NOT NULL,
+  protein_g INTEGER NOT NULL,
+  carbs_g INTEGER NOT NULL,
+  fat_g INTEGER NOT NULL,
+  plan_text TEXT NOT NULL,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_plans_chat_id_created_at ON plans(chat_id, created_at DESC);
